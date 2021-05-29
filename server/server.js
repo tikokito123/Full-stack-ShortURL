@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express();
-
+const signUsers = require('./Routes/users');
 app.use(express.json());
-
+app.use(express.urlencoded())
+app.use('/users', signUsers);
 app.get('/', (req, res) => {
     res.send({message: 'home'});
 })
