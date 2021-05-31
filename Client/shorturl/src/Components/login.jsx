@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Login extends Component {
     state = {  }
     handleSubmit = e => {
-        fetch('/login', {
+        fetch('/login/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
