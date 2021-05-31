@@ -6,6 +6,8 @@ class Signup extends Component {
     state = {  }
 
     handleSubmit = e => {
+        e.preventDefault();
+
         fetch('/signup/', {
             method: 'POST',
             headers: {
@@ -13,8 +15,11 @@ class Signup extends Component {
             },
             body: JSON.stringify(this.state)
         }).then(res => res.json().then(json => console.log(json))).catch(err => console.log('here', err));
+        
     }    
     handleChange = e => {
+        e.preventDefault();
+        
         this.setState({[e.target.name]: e.target.value})
     }
     render() { 
@@ -24,11 +29,11 @@ class Signup extends Component {
                     <h1>TinUrl</h1>
                 </header>
                 
-                <form  method="POST"onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit}>
                     <label htmlFor="username"><input onChange={this.handleChange} required={true} type="text" name="username" placeholder="username"/></label> <br />
                     <label htmlFor="email"><input onChange={this.handleChange} required={true} type="email" name="email" placeholder="example@gmail.com"/></label> <br />
                     <label htmlFor="password"><input onChange={this.handleChange} required={true} type="password" name="password" placeholder="password"/></label> <br />
-                    <button type="submit">SignUp!</button>
+                    <input type="submit" value="Submit" />
                 </form>
             </div>
         );
