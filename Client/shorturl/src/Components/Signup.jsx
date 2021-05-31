@@ -8,7 +8,7 @@ class Signup extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        fetch('/signup/', {
+        fetch('/users/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -19,7 +19,7 @@ class Signup extends Component {
     }    
     handleChange = e => {
         e.preventDefault();
-        
+
         this.setState({[e.target.name]: e.target.value})
     }
     render() { 
