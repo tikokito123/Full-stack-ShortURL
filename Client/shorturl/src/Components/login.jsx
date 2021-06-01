@@ -12,8 +12,13 @@ class Login extends Component {
             },
             body: JSON.stringify(this.state)
         }).then(res => res.json().then(json => {
-            console.log(json.token);
-            this.setState({message: json.message});
+            console.log(json);
+            if(json.token){
+                this.props.history.replace(json.redirect);
+            }
+            else{
+                this.setState({message: json.message});
+            }
         }));
     }
     handleChange = e => {
