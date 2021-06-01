@@ -18,14 +18,19 @@ router.get('/',async (req, res) => {
 router.post('/login',async (req, res) => {
     const user = await User.findOne({
         username: req.body.username,
-        password: req.body.password
     })
-    if (!user) return res.status(404).send({message: 'wrong username or password'});
+    if (!user) return res.status(400).send({message: 'wrong username or password'});
+    
+    console.log(user);
+
+    const validPassword = await bycrypt.compare(req.body.password, user.password);
+    console.log(validPassword);
+    if(!validPassword) return res.status(400).send({message: 'wrong username or password'});
 
     res.send(user).status(200); 
 });
 
-router.post('/signup', (req, res) => {
+router.post('/signup',async (req, res) => {
     const {error} = validateUser(req.body);
     if(error) return res.status(400).send('bad request!');
 
@@ -34,7 +39,10 @@ router.post('/signup', (req, res) => {
         password: req.body.password,
         email: req.body.email
     });
-    console.log(user);
+
+    const salt = await bycrypt.genSalt(10);
+    user.password = await bycrypt.hash(user.password, salt);
+
     user.save();
     res.status(201).send({message: 'success'});
 });
