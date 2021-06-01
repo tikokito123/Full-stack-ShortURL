@@ -8,13 +8,13 @@ class Signup extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        fetch('/users/', {
+        fetch('/users/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(this.state)
-        }).then(res => res.json().then(json => console.log(json))).catch(err => console.log('here', err));
+        }).then(res => res.json().then(json => console.log(json))).catch(err => console.log(err));
         
     }    
     handleChange = e => {

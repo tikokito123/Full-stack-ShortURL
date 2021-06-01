@@ -14,7 +14,18 @@ router.get('/',async (req, res) => {
     
     res.send({users: users});
 });
-router.post('/', (req, res) => {
+
+router.post('/login',async (req, res) => {
+    const user = await User.find({
+        username: req.body.username,
+        password: req.body.password
+    })
+    if (!user) return res.status(404).send('wrong username or password');
+
+    res.send(user).status(200); 
+});
+
+router.post('/signup', (req, res) => {
     const {error} = validateUser(req.body);
     if(error) return res.status(400).send('bad request!');
 
@@ -25,7 +36,7 @@ router.post('/', (req, res) => {
     });
     console.log(user);
     user.save();
-    res.status(200).send('succes');
+    res.status(201).send({message: 'success'});
 });
 
 module.exports = router;
