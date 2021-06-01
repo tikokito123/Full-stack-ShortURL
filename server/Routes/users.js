@@ -3,9 +3,6 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const {User, validateUser} = require('../Models/userModel');
 const bycrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-
-mongoose.connect('mongodb://localhost:27017/Users');
 
 
 router.get('/',async (req, res) => {
@@ -21,13 +18,12 @@ router.post('/login',async (req, res) => {
     })
     if (!user) return res.status(400).send({message: 'wrong username or password'});
     
-    console.log(user);
-
     const validPassword = await bycrypt.compare(req.body.password, user.password);
-    console.log(validPassword);
     if(!validPassword) return res.status(400).send({message: 'wrong username or password'});
 
-    res.send(user).status(200); 
+    const token = user.generateAuthToken();
+   
+    res.status(200).cookie(token).send({token});
 });
 
 router.post('/signup',async (req, res) => {
@@ -44,7 +40,10 @@ router.post('/signup',async (req, res) => {
     user.password = await bycrypt.hash(user.password, salt);
 
     user.save();
-    res.status(201).send({message: 'success'});
+    
+    const token = user.generateAuthToken();
+
+    res.cookie(token).status(201).send({message: 'success'});
 });
 
 module.exports = router;

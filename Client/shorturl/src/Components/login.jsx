@@ -12,6 +12,7 @@ class Login extends Component {
             },
             body: JSON.stringify(this.state)
         }).then(res => res.json().then(json => {
+            console.log(json.token);
             this.setState({message: json.message});
         }));
     }
