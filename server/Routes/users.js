@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const mongoose = require("mongoose");
 const { User, validateUser } = require("../Models/userModel");
 const bycrypt = require("bcrypt");
+const authUser = require("../middlewares/authUser");
 
 router.get("/", async (req, res) => {
   const users = await User.find().select("username -_id");
@@ -10,6 +10,11 @@ router.get("/", async (req, res) => {
 
   res.send({ users: users });
 });
+
+router.get('/profile', authUser, async (req, res) => {
+    const user = await User.findById(req.user).select('username email -_id');
+    res.send({user});
+})
 
 router.post("/login", async (req, res) => {
   const user = await User.findOne({

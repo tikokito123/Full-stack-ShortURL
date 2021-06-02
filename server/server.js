@@ -17,7 +17,10 @@ app.get('/', (req, res) => {
 app.get('/admin-only', authUser, async (req, res) => {
     const user = await User.findById(req.user);
     
-    if(user.admin === false) return res.status(401).send({message: 'only admins can see this page'});
+    if(user.admin === false) return res.status(403).send({
+        message: 'only admins can see this page',
+        redirect: '/Profile'
+    });
     
     res.status(200).send({
         message: 'welcome back admin'

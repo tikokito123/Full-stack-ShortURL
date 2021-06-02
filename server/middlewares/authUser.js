@@ -3,7 +3,7 @@ require('dotenv').config();
 
 module.exports = function (req, res, next)  {
     const token = req.cookies.jwt;
-    if(!token) return res.status(401).send('no token provided');
+    if(!token) return res.status(401).send({message: 'no token provided, you need to login or sign up first via home page'});
     try{
         const verified = jwt.verify(token, process.env.jwt);
         req.user = verified;
