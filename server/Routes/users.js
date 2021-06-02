@@ -24,7 +24,7 @@ router.post("/login", async (req, res) => {
 
   const token = user.generateAuthToken();
 
-  res.status(200).cookie("jwt-auth", token, { httpOnly: true }).send({
+  res.status(200).cookie("jwt", token, { httpOnly: true }).send({
     message: "success",
     token,
     redirect: '/short-url'
@@ -48,7 +48,7 @@ router.post("/signup", async (req, res) => {
 
   const token = user.generateAuthToken();
 
-  res.cookie("jwt-auth", token, { httpOnly: true }).status(201).send({
+  res.cookie("jwt", token, { httpOnly: true }).status(201).send({
     message: "success",
     token,
     redirect: '/short-url'

@@ -1,9 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 class Admin extends Component {
-    state = {  }
-    render() { 
-        return ( <h1> Welcome Admin?... </h1> );
-    }
+  state = {};
+  componentDidMount() {
+    fetch("/admin-only", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) =>
+      res.json().then((json) => this.setState({ message: json.message }))
+    );
+  }
+
+  render() {
+    return <h1> {!this.state.message ? "loading..." : this.state.message} </h1>;
+  }
 }
- 
+
 export default Admin;
