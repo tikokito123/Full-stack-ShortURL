@@ -14,7 +14,11 @@ class Signup extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(this.state)
-        }).then(res => res.json().then(json => console.log(json))).catch(err => console.log(err));
+        }).then(res => res.json().then(json => {
+            if(json.token){
+                this.props.history.replace(json.redirect);
+            }
+        })).catch(err => console.log(err));
         
     }    
     handleChange = e => {

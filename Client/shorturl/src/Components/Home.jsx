@@ -6,6 +6,7 @@ class Home extends Component {
             <div>
                 <h1>TinUrl</h1>
                 <Link to="/Signup">Signup</Link>
+                
                 <h3>Already have one?? </h3>
 
                 <span>So: </span> <Link to="/login">Login</Link>
