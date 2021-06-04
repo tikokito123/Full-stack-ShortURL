@@ -1,18 +1,42 @@
-import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
-class Home extends Component {
-    render() { 
-        return (
-            <div>
-                <h1>TinUrl</h1>
-                <Link to="/Signup">Signup</Link>
-                
-                <h3>Already have one?? </h3>
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { GoogleLogin } from "react-google-login";
 
-                <span>So: </span> <Link to="/login">Login</Link>
-            </div>
-        );
-    }
+class Home extends Component {
+    handleSuccess = (googleData) => {
+        fetch('/users/signup', {
+            method: 'POST',
+            headers: {},
+            body: googleData.profileObj
+        })
+        
+        this.props.history.replace('/Profile');
+
+        console.log(googleData.profileObj);
+    };
+    
+    handleFailure = (googleData) => {
+        console.log("loggin Failed!: ", googleData);
+    };
+    
+    render() {
+    return (
+      <div>
+        <h1>TinUrl</h1>
+        <Link to="/Signup">Signup</Link>
+        <h3>Already have one?? </h3>
+        <span>So: </span> <Link to="/login">Login</Link> <br />
+        <GoogleLogin
+          clientId={process.env.REACT_APP_CLIENT_ID}
+          onSuccess={this.handleSuccess}
+          onFailure={this.handleFailure}
+          buttonText="Sign in with Google"
+          cookiePolicy={"single_host_origin"}
+          isSignedIn={true}
+        />
+      </div>
+    );
+  }
 }
- 
+
 export default Home;

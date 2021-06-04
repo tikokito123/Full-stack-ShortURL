@@ -38,7 +38,7 @@ router.post("/login", async (req, res) => {
 
 router.post("/signup", async (req, res) => {
   const { error } = validateUser(req.body);
-  if (error) return res.status(400).send({message: "bad request!"});
+  if (error) return res.status(400).send({message: `bad request! ${error.details[0].message}`});
 
   const user = new User({
     username: req.body.username,

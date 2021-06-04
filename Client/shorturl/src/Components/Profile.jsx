@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {GoogleLogout} from 'react-google-login';
 
 class Profile extends Component {
   state = {};
@@ -18,6 +19,9 @@ class Profile extends Component {
     this.getUserProfile();  
   }
 
+  onSuccess = () => {
+    console.log('you out!');
+  }
   render() {
     if (!this.state) return "Loading...";
     return (
@@ -27,6 +31,13 @@ class Profile extends Component {
           <br />
           <label htmlFor="email">email: {this.state.email}</label>
         </p>
+        <div>
+          <GoogleLogout 
+            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+            buttonText="Logout"
+            onLogoutSuccess={this.onSuccess}
+          />
+        </div>
       </div>
     );
   }
