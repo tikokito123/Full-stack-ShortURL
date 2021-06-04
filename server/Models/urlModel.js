@@ -23,6 +23,10 @@ const UrlSchema = mongoose.Schema({
         type: Number,
         required: true,
         default: 0
+    },
+    userId: {
+      type: String,
+      required: true
     }
 });
 module.exports = mongoose.model('short-Urls', UrlSchema);

@@ -3,16 +3,17 @@ import { Link } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 
 class Home extends Component {
+  state = {};
     handleSuccess = (googleData) => {
         fetch('/users/signup', {
             method: 'POST',
-            headers: {},
-            body: googleData.profileObj
-        })
-        
-        this.props.history.replace('/Profile');
-
-        console.log(googleData.profileObj);
+            headers: {
+              'Content-Type': 'application/json'
+            }, 
+            body: JSON.stringify(googleData.profileObj)
+        }).then(res => res.json().then(json => {
+          console.log(json.message);
+          this.props.history.replace(json.redirect)}));
     };
     
     handleFailure = (googleData) => {
@@ -32,7 +33,6 @@ class Home extends Component {
           onFailure={this.handleFailure}
           buttonText="Sign in with Google"
           cookiePolicy={"single_host_origin"}
-          isSignedIn={true}
         />
       </div>
     );

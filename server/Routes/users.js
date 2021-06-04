@@ -37,17 +37,21 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  const { error } = validateUser(req.body);
-  if (error) return res.status(400).send({message: `bad request! ${error.details[0].message}`});
+  //const { error } = validateUser(req.body);
+  //if (error) return res.status(400).send({message: `bad request! ${error.details[0].message} IT IS RIGHT HERE??? `});
 
+  const username = req.body.username || req.body.name
+  
   const user = new User({
-    username: req.body.username,
+    username: username,
     password: req.body.password,
     email: req.body.email,
   });
-
-  const salt = await bycrypt.genSalt(10);
-  user.password = await bycrypt.hash(user.password, salt);
+  console.log(user);
+  if(req.body.password){
+    const salt = await bycrypt.genSalt(10);
+    user.password = await bycrypt.hash(user.password, salt);
+  }
 
   user.save();
 
@@ -56,7 +60,7 @@ router.post("/signup", async (req, res) => {
   res.cookie("jwt", token, { httpOnly: true }).status(201).send({
     message: "success",
     token,
-    redirect: '/short-url'
+    redirect: '/profile'
   });
 });
 

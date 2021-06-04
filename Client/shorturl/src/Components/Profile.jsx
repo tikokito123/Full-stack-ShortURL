@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {GoogleLogout} from 'react-google-login';
-
+import { Link } from "react-router-dom";
+import cookie from 'js-cookie';
 class Profile extends Component {
   state = {};
 
@@ -20,8 +21,13 @@ class Profile extends Component {
   }
 
   onSuccess = () => {
-    console.log('you out!');
+    Object.keys(cookie.get()).forEach(element => {
+      cookie.remove(element);
+    });
+    this.props.history.replace('/');
   }
+
+
   render() {
     if (!this.state) return "Loading...";
     return (
@@ -37,6 +43,10 @@ class Profile extends Component {
             buttonText="Logout"
             onLogoutSuccess={this.onSuccess}
           />
+        
+        <p className="short-url">
+          <Link to="/short-url">Short URL</Link>;
+        </p>
         </div>
       </div>
     );
