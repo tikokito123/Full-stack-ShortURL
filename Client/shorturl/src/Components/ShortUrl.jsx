@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class ShortURL extends Component {
   state = {};
@@ -66,6 +67,7 @@ class ShortURL extends Component {
   render() {
     return (
       <div>
+        <Link to="/profile">your Profile</Link>
         <h1>{!this.state.message ? "loading..." : this.state.message}</h1>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="url">

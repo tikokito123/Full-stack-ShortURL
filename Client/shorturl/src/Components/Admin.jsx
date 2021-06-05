@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 class Admin extends Component {
   state = {};
-  
+
   getAdminData = () => {
     fetch("/admin-only", {
       method: "GET",
@@ -16,17 +16,36 @@ class Admin extends Component {
             this.props.history.replace(json.redirect);
           }, 5000);
         }
-        this.setState({ message: json.message });
+        const urlObj = json.urls.map((url) => {
+          return (
+            <div>
+              <p>
+                <label htmlFor="short" key={url.short}>
+                  ShortID: {url.short}
+                </label>
+                <label htmlFor="Counter" key={url.clicks}>
+                  Counter: {url.clicks}
+                </label>
+              </p>
+            </div>
+          );
+        });
+        this.setState({ message: json.message, urlObj });
       })
     );
-  } 
-  
+  };
+
   componentDidMount() {
     this.getAdminData();
   }
 
   render() {
-    return <h1> {!this.state.message ? "loading..." : this.state.message} </h1>;
+    return (
+      <div>
+        <h1> {!this.state.message ? "loading..." : this.state.message} </h1>
+        {this.state.urlObj}
+      </div>
+    );
   }
 }
 

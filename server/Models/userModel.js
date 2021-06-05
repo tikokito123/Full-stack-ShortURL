@@ -21,6 +21,9 @@ const userSchema = mongoose.Schema({
     admin: {
         type: Boolean,
         default: false
+    },
+    googleId: {
+        type: Number
     }
 })
 

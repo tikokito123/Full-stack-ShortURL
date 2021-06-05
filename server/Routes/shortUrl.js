@@ -4,7 +4,8 @@ const authUser = require('../middlewares/authUser');
 const URL = require('../Models/urlModel');
 
 router.get('/', authUser,async (req, res) => {
-    const userUrls = await URL.find().where({userId: req.user});
+    console.log(req.user._id);
+    const userUrls = await URL.find().where({userId: req.user._id});
 
     res.send({
         message: 'welcome to your short URL',
@@ -19,6 +20,10 @@ router.post('/', authUser, async (req, res) => {
     });
     url.save();
     res.status(201).send({message: url});
+});
+
+router.get('/:short', authUser, (req, res) => {
+    
 });
 
 module.exports = router;

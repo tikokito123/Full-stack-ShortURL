@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { GoogleLogout } from "react-google-login";
 import { Link } from "react-router-dom";
 import cookie from "js-cookie";
+
 class Profile extends Component {
   state = {};
 
@@ -21,8 +22,8 @@ class Profile extends Component {
   }
 
   onSuccess = () => {
-    Object.keys(cookie.get()).forEach((element) => {
-      cookie.remove(element);
+    Object.keys(cookie.get()).forEach((currentCookie) => {
+      cookie.remove(currentCookie);
     });
     this.props.history.replace("/");
   };
@@ -38,7 +39,7 @@ class Profile extends Component {
         </p>
         <div>
           <GoogleLogout
-            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+            clientId={process.env.REACT_APP_CLIENT_ID}
             buttonText="Logout"
             onLogoutSuccess={this.onSuccess}
           />
