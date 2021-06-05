@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import {GoogleLogout} from 'react-google-login';
+import { GoogleLogout } from "react-google-login";
 import { Link } from "react-router-dom";
-import cookie from 'js-cookie';
+import cookie from "js-cookie";
 class Profile extends Component {
   state = {};
 
@@ -14,19 +14,18 @@ class Profile extends Component {
     }).then((res) =>
       res.json().then((json) => this.setState({ ...json.user }))
     );
-  }
+  };
 
   componentDidMount() {
-    this.getUserProfile();  
+    this.getUserProfile();
   }
 
   onSuccess = () => {
-    Object.keys(cookie.get()).forEach(element => {
+    Object.keys(cookie.get()).forEach((element) => {
       cookie.remove(element);
     });
-    this.props.history.replace('/');
-  }
-
+    this.props.history.replace("/");
+  };
 
   render() {
     if (!this.state) return "Loading...";
@@ -38,15 +37,15 @@ class Profile extends Component {
           <label htmlFor="email">email: {this.state.email}</label>
         </p>
         <div>
-          <GoogleLogout 
+          <GoogleLogout
             clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
             buttonText="Logout"
             onLogoutSuccess={this.onSuccess}
           />
-        
-        <p className="short-url">
-          <Link to="/short-url">Short URL</Link>;
-        </p>
+
+          <p className="short-url">
+            <Link to="/short-url">Short URL</Link>;
+          </p>
         </div>
       </div>
     );

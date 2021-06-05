@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const shortId = require("shortid");
 
 mongoose
-  .connect("mongodb://localhost:27017/short-urls", {
+  .connect("mongodb://localhost:27017/Users", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
