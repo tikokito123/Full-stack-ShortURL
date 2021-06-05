@@ -22,8 +22,18 @@ router.post('/', authUser, async (req, res) => {
     res.status(201).send({message: url});
 });
 
-router.get('/:short', authUser, (req, res) => {
-    
+router.get('/:short', authUser,async (req, res) => {
+    console.log(req.params.short);
+    const url = await URL.findOne({short: req.params.short});
+    if(!url) return res.status(404).send('cannot found the url you were looking for');
+
+    url.clicks++;
+    url.save();
+
+    res.status(301).send({
+        message: url,
+        redirect: url.full
+    });
 });
 
 module.exports = router;
