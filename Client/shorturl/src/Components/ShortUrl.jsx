@@ -21,10 +21,10 @@ class ShortURL extends Component {
             <div>
               <p>
                 <label htmlFor="short" key={url.full}>
-                  ShortID: <a onClick={this.HandleClick} href={`/short-url/${url.short}`}>{url.short}</a>
+                  ShortID: <a  onClick={this.HandleClick}  href={`/short-url/${url.short}`}>{url.short}</a>
                 </label>
                 <label htmlFor="full" key={url.full} >
-                  Full-URL: <a href={url.full}>{url.full}</a>
+                  Full-URL: <a rel="noreferrer" target="_blank" href={url.full}>{url.full}</a>
                 </label>
                 <label htmlFor="Counter" key={url.clicks}>
                   Counter: {url.clicks}
@@ -61,7 +61,7 @@ class ShortURL extends Component {
 
   HandleClick = e => {
     e.preventDefault();
-    console.log(e.target.href);
+
     fetch(`${e.target.href}`, {
       method: "GET",
       headers: {
@@ -70,7 +70,8 @@ class ShortURL extends Component {
       body: JSON.stringify(e.target.value)
     }).then(res => res.json().then(json => { 
       console.log(json.message);
-      window.location.replace(json.redirect);
+      window.open(json.redirect);
+      window.location.reload();
     }));
 
   }

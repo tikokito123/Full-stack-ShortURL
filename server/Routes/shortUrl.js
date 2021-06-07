@@ -26,10 +26,12 @@ router.post('/', authUser, async (req, res) => {
 
 router.get('/:short', authUser,async (req, res) => {
     const shortId = req.params.short;
+    
     const url = await URL.findOne({short: req.params.short});
     
     redisClient.get(shortId, async (err, data) => {
         if(err) return console.log(err);
+
         if(!data){
             const url = await URL.findOne({short: shortId});
             redisClient.set(url.short, url.full);
@@ -51,8 +53,8 @@ router.get('/:short', authUser,async (req, res) => {
             url.save();
             
             return res.status(301).send({
-                message: url,
-                redirect: url.full
+                message: data,
+                redirect: data
             });
         }
 
