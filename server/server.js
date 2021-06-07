@@ -6,6 +6,8 @@ const authUser = require('./middlewares/authUser');
 const cookieParser = require('cookie-parser');
 const { User } = require('./Models/userModel');
 const URL = require('./Models/urlModel');
+const redis = require('redis');
+
 app.use(express.json());
 app.use(cookieParser());
 

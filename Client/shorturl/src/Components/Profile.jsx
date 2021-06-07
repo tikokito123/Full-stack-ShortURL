@@ -45,7 +45,7 @@ class Profile extends Component {
           />
 
           <p className="short-url">
-            <Link to="/short-url">Short URL</Link>;
+            <Link to="/short-url">Short URL</Link>
           </p>
         </div>
       </div>

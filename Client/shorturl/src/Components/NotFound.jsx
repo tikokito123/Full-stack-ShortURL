@@ -4,6 +4,4 @@ class NotFound extends Component {
         return <h1>Page does not exist or not found!</h1>;
     }
 }
- 
-export default NotFound
-;
+export default NotFound;

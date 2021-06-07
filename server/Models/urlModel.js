@@ -2,12 +2,14 @@ const Joi = require("joi");
 const mongoose = require("mongoose");
 const shortId = require("shortid");
 
+
 mongoose
-  .connect("mongodb://localhost:27017/Users", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .catch((err) => console.error(err));
+.connect("mongodb://localhost:27017/Users", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.catch((err) => console.error(err));
+
 
 const UrlSchema = mongoose.Schema({
     full: {

@@ -44,7 +44,6 @@ router.post("/signup", async (req, res) => {
   if(userExist && userExist.googleId === null) return res.status(400).send('user is already exist!');
 
   const googleExist = await User.findOne({googleId: req.body.googleId})
-  console.log(googleExist);
 
   if(googleExist) { 
     const token = googleExist.generateAuthToken();
