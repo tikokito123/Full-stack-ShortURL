@@ -59,11 +59,6 @@ router.get('/:short', authUser,async (req, res) => {
         }
 
     })
-
-    
-
-
-    
 });
 
 module.exports = router;

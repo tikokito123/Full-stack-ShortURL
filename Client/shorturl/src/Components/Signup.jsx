@@ -24,7 +24,7 @@ class Signup extends Component {
     handleChange = e => {
         e.preventDefault();
 
-        this.setState({[e.target.name]: e.target.value})
+        this.setState({[e.target.name]: e.target.value});
     }
     render() { 
         return (

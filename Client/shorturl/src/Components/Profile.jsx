@@ -33,9 +33,9 @@ class Profile extends Component {
     return (
       <div>
         <p>
-          <label htmlFor="username">Username: {this.state.username}</label>{" "}
+          <span>Username: {this.state.username}</span>{" "}
           <br />
-          <label htmlFor="email">email: {this.state.email}</label>
+          <span>email: {this.state.email}</span>
         </p>
         <div>
           <GoogleLogout
