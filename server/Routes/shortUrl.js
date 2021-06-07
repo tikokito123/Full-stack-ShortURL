@@ -1,65 +1,19 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const authUser = require('../middlewares/authUser');
-const URL = require('../Models/urlModel');
-const redis = require('redis');
+const authUser = require("../middlewares/authUser");
+const URL = require("../Models/urlModel");
+const redis = require("redis");
+const urlsController = require('../Controllers/urlsController');
 
-const redisClient = redis.createClient(6379); 
+require('dotenv').config();
 
-router.get('/', authUser,async (req, res) => {
-    const userUrls = await URL.find().where({userId: req.user._id});
+const redisPort = process.env.redis || 6379;
+redis.createClient(redisPort);
 
-    res.send({
-        message: 'welcome to your short URL',
-        urls: userUrls
-    })
-});
+router.get("/", authUser, urlsController.getUserUrls);
 
-router.post('/', authUser, async (req, res) => {
-    const url = new URL({
-        full: req.body.url,
-        userId: req.user
-    });
-    url.save();
-    res.status(201).send({message: url});
-});
+router.post("/", authUser, urlsController.createURL);
 
-router.get('/:short', authUser,async (req, res) => {
-    const shortId = req.params.short;
-    
-    const url = await URL.findOne({short: req.params.short});
-    
-    redisClient.get(shortId, async (err, data) => {
-        if(err) return console.log(err);
-
-        if(!data){
-            const url = await URL.findOne({short: shortId});
-            redisClient.set(url.short, url.full);
-
-            console.log('response from the API');
-
-            url.clicks++;
-            url.save();
-            
-            return res.status(301).send({
-                message: url,
-                redirect: url.full
-            });
-        }
-        else {
-            console.log('response from redis', data);
-            
-            url.clicks++;
-            url.save();
-            
-            return res.status(301).send({
-                message: data,
-                redirect: data
-            });
-        }
-
-    })
-});
+router.get("/:short", authUser, urlsController.getFullRedirectURL);
 
 module.exports = router;
-
