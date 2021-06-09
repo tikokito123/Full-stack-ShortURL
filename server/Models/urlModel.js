@@ -24,6 +24,11 @@ const UrlSchema = mongoose.Schema({
         required: true,
         default: shortId.generate
     },
+    clicks: {
+      type: Number,
+      required: true,
+      default: 0
+    },
     userId: {
       type: String,
       required: true

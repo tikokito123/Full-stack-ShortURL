@@ -1,10 +1,11 @@
 const URL = require("../Models/urlModel");
-const redis = require('redis')
-
-require('dotenv').config();
+const redis = require("redis");
+require("dotenv").config();
 
 const redisPort = process.env.redis || 6379;
 const redisClient = redis.createClient(redisPort);
+
+redisClient.on("error", (err) => console.log(err));
 
 const getUserUrls = async (req, res) => {
   const userUrls = await URL.find().where({ userId: req.user._id });
@@ -25,36 +26,52 @@ const createURL = async (req, res) => {
 };
 
 const getRedirectURL = async (req, res) => {
-    const shortId = req.params.short;
-  
-    let message;
-    let redirect;
-  
-    redisClient.get(req.user + `:` + shortId, async (err, data) => {
+  const shortId = req.params.short;
+
+  let message;
+  let redirect;
+
+  try {
+    redisClient.get(req.user._id + `:` + shortId, async (err, data) => {
       if (err) return console.log(err);
+
       message = data;
       redirect = data;
+
       if (!data) {
+        console.log("here");
         const url = await URL.findOne({ short: shortId });
         if (!url) return res.sendStatus(404, "Url did not found");
-  
-        redisClient.set(url.userId + ":" + url.short, url.full);
+
+        redisClient.set(req.user._id + ":" + url.short, url.full);
         message = url;
-          redirect = url.full;
+        redirect = url.full;
+
+        url.clicks++;
+        url.save();
       }
-  
-      redisClient.incr(`${req.user}:${shortId}:clicks`, (err, clicked) =>
-        console.log(clicked)
-      );
-  
+      
+      console.log('redis first?');
+
       return res.status(200).send({
         message,
-        redirect
+        redirect,
       });
     });
+
+    const url = await URL.findOne({ short: shortId });
+    if (!url) return res.sendStatus(404, "Url did not found");
+
+    url.clicks++;
+    url.save();
+  } catch (ex) {
+    console.log(ex, "check redis server");
+    return res.sendStatus(500);
   }
+};
+
 module.exports = {
   getUserUrls,
   createURL,
-  getFullRedirectURL: getRedirectURL
+  getFullRedirectURL: getRedirectURL,
 };

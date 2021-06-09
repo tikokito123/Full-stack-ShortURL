@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const authUser = require("../middlewares/authUser");
-const URL = require("../Models/urlModel");
 const redis = require("redis");
 const urlsController = require('../Controllers/urlsController');
 
