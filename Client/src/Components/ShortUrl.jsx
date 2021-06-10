@@ -12,6 +12,7 @@ class ShortURL extends Component {
       },
     }).then((res) =>
       res.json().then((json) => {
+        console.log(json.counter);
         if (json.redirect) {
           setTimeout(() => this.props.history.replace(json.redirect), 3000);
           res.status(400);
@@ -22,12 +23,6 @@ class ShortURL extends Component {
               <p>
                 <label htmlFor="short" key={url.full}>
                   ShortID: <a  onClick={this.HandleClick}  href={`/short-url/${url.short}`}>{url.short}</a>
-                </label>
-                <label htmlFor="full" key={url.full} >
-                  Full-URL: <a rel="noreferrer" target="_blank" href={url.full}>{url.full}</a>
-                </label>
-                <label htmlFor="Counter" key={url.clicks}>
-                  Counter: {url.clicks}
                 </label>
               </p>
             </div>
@@ -68,10 +63,10 @@ class ShortURL extends Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(e.target.value)
-    }).then(res => res.json().then(json => { 
-      console.log(json.message);
+    }).then(res => res.json().then(json => {
+      this.setState({counter: json.counter}); 
       window.open(json.redirect);
-      window.location.reload();
+      //window.location.reload();
     }));
 
   }
@@ -93,7 +88,7 @@ class ShortURL extends Component {
           </label>
           <input type="submit" value="short it!" />
         </form>
-        {this.state.urlObj}
+        <span>{this.state.urlObj}</span>
       </div>
     );
   }

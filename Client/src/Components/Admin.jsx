@@ -35,7 +35,12 @@ class Admin extends Component {
     );
   };
 
+  reloadAdminPage = () => {
+    setInterval(() => window.location.reload(), 5000);
+  }
+
   componentDidMount() {
+    this.reloadAdminPage();
     this.getAdminData();
   }
 

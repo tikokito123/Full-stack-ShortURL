@@ -1,33 +1,60 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const signUsers = require('./Routes/users');
-const shortUrl = require('./Routes/shortUrl');
-const authUser = require('./middlewares/authUser');
-const cookieParser = require('cookie-parser');
-const { User } = require('./Models/userModel');
-const URL = require('./Models/urlModel');
-const redis = require('redis');
+const signUsers = require("./Routes/users");
+const shortUrl = require("./Routes/shortUrl");
+const authUser = require("./middlewares/authUser");
+const cookieParser = require("cookie-parser");
+const { User } = require("./Models/userModel");
+const URL = require("./Models/urlModel");
+const redis = require("redis");
+const fs = require('fs');
+require("dotenv").config();
+
+const redisPort = process.env.redis || 6379;
+const redisClient = redis.createClient(redisPort);
+
+redisClient.on("error", (err) => console.log(err));
 
 app.use(express.json());
 app.use(cookieParser());
 
-app.use('/users', signUsers);
-app.use('/short-url', shortUrl);
-app.get('/', (req, res) => {
-    res.send({message: 'home'});
-})
+app.use("/users", signUsers);
+app.use("/short-url", shortUrl);
+app.get("/", (req, res) => {
+  res.send({ message: "home" });
+});
 
-app.get('/admin-only', authUser, async (req, res) => {
-    const user = await User.findById(req.user);
-    if(user.admin === false) return res.status(403).send({
-        message: 'only admins can see this page',
-        redirect: '/Profile'
+app.get("/admin-only", authUser, async (req, res) => {
+  const adminUser = await User.findById(req.user);
+  if(!adminUser) return res.sendStatus(404);
+  
+  const user = await User.find();
+  if(!user) return res.sendStatus(404);
+  
+  console.log(user.username);
+
+  if (adminUser.admin === false)
+  return res.status(403).send({
+      message: "only admins can see this page",
+      redirect: "/Profile",
     });
-    const url = await URL.find().select('clicks short');
-    res.status(200).send({
-        message: 'welcome back admin',
-        urls: url
-    })
-})
-const port = process.env.PORT || 3001;
-app.listen(port, () => console.log(`Fuck my life ${port}`))
+  
+  const url = await URL.find();
+
+  res.send({
+    urls: url
+  })
+
+  });
+
+  const port = process.env.PORT || 3001;
+  app.listen(port, () => console.log(`Fuck my life ${port}`));
+  
+  process.on('uncaughtException', (err, origin) => {
+    fs.writeSync(
+      process.stderr.fd,
+      `Caught exception: ${err}\n` +
+      `Exception origin: ${origin}`
+    );
+  });
+  

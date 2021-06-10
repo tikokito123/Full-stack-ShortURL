@@ -2,9 +2,11 @@ const Joi = require('joi');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
-mongoose.connect('mongodb://localhost:27017/Users',  { useNewUrlParser: true, useUnifiedTopology: true }).then('connect on users model').catch(err => console.log(err));
-
 require('dotenv').config();
+
+const mongoPort = process.env.mongo || 'mongodb://localhost:27017/Users'
+mongoose.connect(mongoPort, { useNewUrlParser: true, useUnifiedTopology: true }).then('connect on users model').catch(err => console.log(err));
+
 
 const userSchema = mongoose.Schema({
     username: {
