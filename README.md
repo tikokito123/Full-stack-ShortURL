@@ -7,7 +7,9 @@ for that you will need:
 
 1. first of all make sure you have node.js, afterwards install create-react-app
 
-2.PACKAGES:
+2. go to client folder and server folder, do a npm install on both.
+
+3. PACKAGES:
 mongoose, npm i mongoose
 redis, npm i redis
 joi(optinal), npm i Joi,
@@ -21,7 +23,7 @@ react Router, npm i react-router-dom',
 google authentication, npm i react-google-login
 
 
-3.make sure you have mongoDBCompass on your computer, redis server, and node js.
+3. make sure you have mongoDBCompass on your computer, redis server, and node js.
 
 
 4. go to the dir file through terminal at ./dirname/full-stack-SHORTURL/server and another terminal at 
