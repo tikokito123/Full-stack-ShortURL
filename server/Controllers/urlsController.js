@@ -2,8 +2,10 @@ const URL = require("../Models/urlModel");
 const redis = require("redis");
 require("dotenv").config();
 
-const redisPort = process.env.redis || 6379;
-const redisClient = redis.createClient(redisPort);
+const redisClient = redis.createClient({
+  host: process.env.redisHost,
+  port: process.env.redisPort,
+});
 
 redisClient.on("error", (err) => console.log(err));
 
