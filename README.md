@@ -29,4 +29,4 @@ have fun!
 
 1. Make sure you have docker engine installed on your machine
 
-2. On the terminal/cmd, Go to the directory of the project, and simply do **docker-compose up**
+2. inside terminal/cmd, Go to the directory of the project, and simply do **docker-compose up**
