@@ -1,38 +1,7 @@
 # Full-stack-ShortURL
-React app full stack with node js, react mongoose, redis, google authentication
-
-welcome to Tinurl, this guide will help you set up the project
-
-for that you will need: 
-
-1. first of all make sure you have node.js, afterwards install create-react-app
-
-2. go to client folder and server folder, do a npm install on both.
-
-3. PACKAGES:
-mongoose, npm i mongoose
-redis, npm i redis
-joi(optinal), npm i Joi,
-express, npm i express,
-dotenv, npm i dotenv,
-jsonwebtoken, npm i jsonwebtoken,
-bcrypt, npm i bcrypt,
-shortid, npm i shortid
-fs, should be installed with node.js, if not, npm i fs
-react Router, npm i react-router-dom',
-google authentication, npm i react-google-login
 
 
-3. make sure you have mongoDBCompass on your computer, redis server, and node js.
-
-
-4. go to the dir file through terminal at ./dirname/full-stack-SHORTURL/server and another terminal at 
-./dirname/full-stack-SHORTURL/client, on both, do npm start. it will start the server on localhost:3001 and client on localhost:3000
-make sure they are free to use for this one
-
-
-
-# Running the app with Docker
+### Running the app with Docker
 
 this tutorial will guide you to how run the application with docker. this guide expect you to have a previous knowledge with docker.
 
@@ -53,3 +22,11 @@ docker run server % docker run mongoDb -d -v ~/mongo/data:/data/db -p 27017:2701
 
 This will do the work :)
 have fun!
+
+
+
+# Run Application With Docker-Compose (Recommended)
+
+1. Make sure you have docker engine installed on your machine
+
+2. On the terminal/cmd, Go to the directory of the project, and simply do **docker-compose up**
