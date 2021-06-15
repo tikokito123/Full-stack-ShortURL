@@ -1,9 +1,6 @@
 const URL = require("../Models/urlModel");
-const redis = require("redis");
+const {redisClient} = require('../Connections/redisConnection');
 require("dotenv").config();
-
-const redisPort = process.env.redis || 6379;
-const redisClient = redis.createClient(redisPort);
 
 redisClient.on("error", (err) => console.log(err));
 

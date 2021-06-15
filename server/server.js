@@ -6,12 +6,10 @@ const authUser = require("./middlewares/authUser");
 const cookieParser = require("cookie-parser");
 const { User } = require("./Models/userModel");
 const URL = require("./Models/urlModel");
-const redis = require("redis");
 const fs = require('fs');
-require("dotenv").config();
+const {redisClient} = require('./Connections/redisConnection');
 
-const redisPort = process.env.redis || 6379;
-const redisClient = redis.createClient(redisPort);
+require("dotenv").config();
 
 redisClient.on("error", (err) => console.log(err));
 

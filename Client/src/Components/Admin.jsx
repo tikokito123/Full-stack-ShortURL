@@ -11,10 +11,12 @@ class Admin extends Component {
     }).then((res) =>
       res.json().then((json) => {
         if (json.redirect) {
-          json.message = "you are not an admin and will redirect in 5 seconds";
+          json.message = "you are not an admin and will redirect in soon";
           setTimeout(() => {
             this.props.history.replace(json.redirect);
-          }, 5000);
+          }, 3000);
+          this.setState({message: json.message});
+          return;
         }
         const urlObj = json.urls.map((url) => {
           return (
@@ -31,13 +33,14 @@ class Admin extends Component {
           );
         });
         this.setState({ message: json.message, urlObj });
+        console.log(this.state);
       })
     );
   };
 
   reloadAdminPage = () => {
     setInterval(() => window.location.reload(), 5000);
-  }
+  };
 
   componentDidMount() {
     this.reloadAdminPage();

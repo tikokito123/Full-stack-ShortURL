@@ -1,18 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const authUser = require("../middlewares/authUser");
-const redis = require("redis");
-const urlsController = require('../Controllers/urlsController');
+const urlModel = require("../Models/urlModel");
+const urlController = require('../Controllers/urlsController');
 
-require('dotenv').config();
 
-const redisPort = process.env.redis || 6379;
-redis.createClient(redisPort);
+router.get("/", authUser, urlController.getUserUrls);
 
-router.get("/", authUser, urlsController.getUserUrls);
+router.post("/", authUser, urlController.createURL);
 
-router.post("/", authUser, urlsController.createURL);
-
-router.get("/:short", authUser, urlsController.getFullRedirectURL);
+router.get("/:short", authUser, urlController.getFullRedirectURL);
 
 module.exports = router;
