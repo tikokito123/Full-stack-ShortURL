@@ -6,15 +6,10 @@ const authUser = require("./middlewares/authUser");
 const cookieParser = require("cookie-parser");
 const { User } = require("./Models/userModel");
 const URL = require("./Models/urlModel");
-const redis = require("redis");
 const fs = require('fs');
+const {redisClient} = require('./Connections/redisConnection');
+
 require("dotenv").config();
-
-const redisClient = redis.createClient({
-  host: process.env.redisHost,
-  port: process.env.redisPort,
-});
-
 
 redisClient.on("error", (err) => console.log(err));
 
