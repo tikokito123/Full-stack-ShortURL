@@ -31,7 +31,7 @@ class Profile extends Component {
   render() {
     if (!this.state) return "Loading...";
     return (
-      <div>
+      <div className="App">
         <p>
           <span>Username: {this.state.username}</span>{" "}
           <br />

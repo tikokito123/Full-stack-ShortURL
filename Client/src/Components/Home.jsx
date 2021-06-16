@@ -22,7 +22,7 @@ class Home extends Component {
     
     render() {
     return (
-      <div>
+      <div className="App">
         <h1>TinUrl</h1>
         <Link to="/Signup">Signup</Link>
         <h3>Already have one?? </h3>
