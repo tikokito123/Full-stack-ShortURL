@@ -56,7 +56,7 @@ class Login extends Component {
             </div>
           </label>{" "}
           <br />
-          <input className="btn" type="submit" value="login!" />
+          <input className="btn" type="submit" value="Login!" />
         </form>
         <div id="note">
           {!this.state.message ? `Welcome back ` : this.state.message}

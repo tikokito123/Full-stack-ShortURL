@@ -31,7 +31,6 @@ class Signup extends Component {
     return (
       <div className="login-box">
         <h1>TinUrl</h1>
-
         <form className="textbox" onSubmit={this.handleSubmit}>
           <label htmlFor="username">
             <div className="textbox">
@@ -47,8 +46,7 @@ class Signup extends Component {
           </label>{" "}
           <br />
           <label htmlFor="email">
-            <div className="textbox">
-              <i class="fa-solid fa-square-envelope"></i>
+            <div className="textbox" id="email">
               <input
                 onChange={this.handleChange}
                 required={true}
@@ -74,6 +72,7 @@ class Signup extends Component {
           <br />
           <input className="btn" type="submit" value="Submit" />
         </form>
+        <div id="note">Welcome to Tinurl</div>
       </div>
     );
   }
