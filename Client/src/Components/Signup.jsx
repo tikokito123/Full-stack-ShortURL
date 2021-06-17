@@ -46,7 +46,8 @@ class Signup extends Component {
           </label>{" "}
           <br />
           <label htmlFor="email">
-            <div className="textbox" id="email">
+            <div className="textbox">
+            <i class="fa-solid fa-envelope"></i>
               <input
                 onChange={this.handleChange}
                 required={true}

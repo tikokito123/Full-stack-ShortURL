@@ -1,7 +1,7 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
-body {
+body{
    margin: 0;
    padding: 0;
    font-family: 'Lobster', sans-serif;
@@ -49,14 +49,10 @@ body {
    display: inline;
    color: black;
    font-size: 18px;
-   width: 80px;
+   width: auto;
    float: left;
    margin: 0 10px;
    overflow: visible !important;
-}
-
-#email input{
-   width: auto !important;
 }
 
 .btn {

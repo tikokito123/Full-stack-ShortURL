@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  width: 1170px;
+  margin: auto;
+}
+
+header {
+  height: 100vh;
+  position: relative;
+}
+.nav {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.nav li {
+    display: inline-block;
+}
+
+.nav li a {
+  color: rgb(179, 63, 34);
+  padding: 5px 20px;
+  font-size: 50px;
+  transition: 0.8s;
+}
+
+.nav li a:hover {
+  color: #333;
+}
+
+.welcome-text {
+    position: absolute;
+    width: 750px;
+    height: 300px;
+    margin: 15% 30%;
+    text-align: center;
+}
+
+.title {
+    position: absolute;
+    color: rgb(0, 0, 0);
+    margin: 5% 45%;
+    border-bottom: 5px solid rgb(0, 0, 0);
+    text-align: center;
+    font-size: 70px;
+}

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "../css/Login.css";
 
 class Login extends Component {
   state = {};
@@ -26,42 +27,44 @@ class Login extends Component {
     e.preventDefault();
     this.setState({ [e.target.name]: e.target.value });
   };
-  
+
   render() {
     return (
-      <div className="login-box">
-        <h1>TinUrl</h1>
-        <form className="textbox" onSubmit={this.handleSubmit}>
-          <label htmlFor="username">
-            <div className="textbox">
-              <i className="fas fa-user"></i>
-              <input
-                onChange={this.handleChange}
-                type="text"
-                placeholder="username"
-                name="username"
-              />
-            </div>
-          </label>
-          <br />
-          <label htmlFor="password">
-            <div className="textbox">
-              <i className="fas fa-lock"></i>
-              <input
-                onChange={this.handleChange}
-                type="password"
-                placeholder="password"
-                name="password"
-              />
-            </div>
-          </label>{" "}
-          <br />
-          <input className="btn" type="submit" value="Login!" />
-        </form>
-        <div id="note">
-          {!this.state.message ? `Welcome back ` : this.state.message}
+      <header className="Login-body">
+        <div className="login-box">
+          <h1>TinUrl</h1>
+          <form className="textbox" onSubmit={this.handleSubmit}>
+            <label htmlFor="username">
+              <div className="textbox">
+                <i className="fas fa-user"></i>
+                <input
+                  onChange={this.handleChange}
+                  type="text"
+                  placeholder="username"
+                  name="username"
+                />
+              </div>
+            </label>
+            <br />
+            <label htmlFor="password">
+              <div className="textbox">
+                <i className="fas fa-lock"></i>
+                <input
+                  onChange={this.handleChange}
+                  type="password"
+                  placeholder="password"
+                  name="password"
+                />
+              </div>
+            </label>{" "}
+            <br />
+            <input className="btn" type="submit" value="Login!" />
+          </form>
+          <div id="note">
+            {!this.state.message ? `Welcome back ` : this.state.message}
+          </div>
         </div>
-      </div>
+      </header>
     );
   }
 }
