@@ -48,3 +48,15 @@ header {
     text-align: center;
     font-size: 70px;
 }
+
+.welcome-text p{
+    font-size: 60px;
+
+}
+
+#short {
+    display: inline-block;
+    margin: 5%;
+    font-size: 30px;
+    color: rgb(97, 22, 22);
+}

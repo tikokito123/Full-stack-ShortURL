@@ -58,8 +58,7 @@ body{
 .btn {
    font-family: 'Righteous', sans-serif !important;
    background-color: rgb(13, 228, 5) !important;
-   display: block;
-   width: 100%;
+   display: flex;
    border: 2px solid rgb(17, 12, 85);
    border-radius: 15px;
    color: black;

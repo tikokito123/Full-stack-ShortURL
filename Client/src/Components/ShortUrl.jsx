@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import '../css/shortURL.css';
 
 class ShortURL extends Component {
   state = {};
@@ -78,15 +79,15 @@ class ShortURL extends Component {
 
   render() {
     return (
-      <div>
-        <Link to="/profile">your Profile</Link>
+      <div className="shortPage">
+        <Link id="short" to="/profile">your Profile</Link>
         <h1>{!this.state.message ? "loading..." : this.state.message}</h1>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="url">
             URL:{" "}
-            <input onChange={this.handleChange} type="url" name="url" id="" />
+            <input onChange={this.handleChange} type="url" name="url" id="textbox" />
           </label>
-          <input type="submit" value="short it!" />
+          <input id="btn" type="submit" value="short it!" />
         </form>
         <span>{this.state.urlObj}</span>
       </div>
