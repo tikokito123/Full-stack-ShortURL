@@ -36,7 +36,6 @@ const getRedirectURL = async (req, res) => {
       redirect = data;
 
       if (!data) {
-        console.log("here");
         const url = await URL.findOne({ short: shortId });
         if (!url) return res.sendStatus(404, "Url did not found");
 
@@ -48,7 +47,6 @@ const getRedirectURL = async (req, res) => {
         url.save();
       }
       
-      console.log('redis first?');
 
       return res.status(200).send({
         message,

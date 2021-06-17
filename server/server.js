@@ -15,9 +15,13 @@ redisClient.on("error", (err) => console.log(err));
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.static(__dirname + '/build'));
 
+//routes
 app.use("/users", signUsers);
 app.use("/short-url", shortUrl);
+
+
 app.get("/", (req, res) => {
   res.send({ message: "home" });
 });

@@ -31,22 +31,23 @@ class Profile extends Component {
   render() {
     if (!this.state) return "Loading...";
     return (
-      <div>
+      <div className="welcome-text">
         <p>
           <span>Username: {this.state.username}</span>{" "}
           <br />
           <span>email: {this.state.email}</span>
         </p>
         <div>
+          <br /> <br />
           <GoogleLogout
             clientId={process.env.REACT_APP_CLIENT_ID}
             buttonText="Logout"
             onLogoutSuccess={this.onSuccess}
           />
 
-          <p className="short-url">
-            <Link to="/short-url">Short URL</Link>
-          </p>
+          <div >
+            <Link to="/short-url" id="short">Your Urls!</Link>
+          </div>
         </div>
       </div>
     );
