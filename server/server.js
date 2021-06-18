@@ -8,6 +8,7 @@ const { User } = require("./Models/userModel");
 const URL = require("./Models/urlModel");
 const fs = require('fs');
 const {redisClient} = require('./Connections/redisConnection');
+const path = require('path');
 
 require("dotenv").config();
 
@@ -15,7 +16,14 @@ redisClient.on("error", (err) => console.log(err));
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname ,'../build')));
+console.log(path.join(__dirname ,'../build'));
 
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname , 'build', '/index.html'));
+});
+
+//routes
 app.use("/users", signUsers);
 app.use("/short-url", shortUrl);
 app.get("/", (req, res) => {
