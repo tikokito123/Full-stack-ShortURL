@@ -8,6 +8,7 @@ const { User } = require("./Models/userModel");
 const URL = require("./Models/urlModel");
 const fs = require('fs');
 const {redisClient} = require('./Connections/redisConnection');
+const path = require('path');
 
 require("dotenv").config();
 
@@ -15,8 +16,14 @@ redisClient.on("error", (err) => console.log(err));
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static(__dirname + '/build'));
 
+app.use(express.static(path.join(__dirname ,'../build')));
+
+//app.get('/*', (req, res) => {
+//  res.sendFile(path.join(__dirname , '../build', '/index.html'));
+//});
+
+ 
 //routes
 app.use("/users", signUsers);
 app.use("/short-url", shortUrl);
@@ -48,6 +55,8 @@ app.get("/admin-only", authUser, async (req, res) => {
   })
 
   });
+const not_found = require('./middlewares/notFound');
+  app.use(not_found);
 
   const port = process.env.PORT || 3001;
   app.listen(port, () => console.log(`Fuck my life ${port}`));
