@@ -1,14 +1,18 @@
-FROM node:alpine
+FROM node:alpine AS builder
 
 WORKDIR /usr/app
 RUN apk --no-cache add --virtual builds-deps build-base
 
-COPY Client .
-RUN npm install && npm run build 
-
-COPY server .
+COPY Client/package.json .
 RUN npm install
+COPY Client .
+RUN npm run build
 
-COPY . .
+
+FROM node:alpine  
+WORKDIR /usr/app
+COPY server/package.json .
+RUN npm install
+COPY server .
+COPY --from=builder /usr/app/build .
 CMD [ "node", "server/server.js" ]
-
