@@ -14,5 +14,5 @@ WORKDIR /usr/app
 COPY server/package.json .
 RUN npm install
 COPY server .
-COPY --from=builder /usr/app/build .
-CMD [ "node", "server/server.js" ]
+COPY --from=builder ./build ./build
+CMD [ "node", "server.js" ]
