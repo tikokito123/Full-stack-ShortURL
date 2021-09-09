@@ -59,7 +59,7 @@ const not_found = require('./middlewares/notFound');
   app.use(not_found);
 
   const port = process.env.PORT || 3001;
-  app.listen(port, () => console.log(`Fuck my life ${port}`));
+  app.listen(port, () => console.log(`connected to port ${port}`));
   
   process.on('uncaughtException', (err, origin) => {
     fs.writeSync(
